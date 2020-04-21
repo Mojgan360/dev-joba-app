@@ -33,14 +33,12 @@ router.get("/me", auth, async (req, res) => {
 // @route    POST api/profile
 // @desc     Create or update user profile
 // @access   Private
-
 router.post(
   "/",
   [
     auth,
     [
       check("status", "Status is required").not().isEmpty(),
-
       check("skills", "Skills is required").not().isEmpty(),
     ],
   ],
@@ -67,6 +65,7 @@ router.post(
 
     // Build profile object
     const profileFields = {};
+    //vi kan ha tillgång till user from Profile-model genom req.user.iD
     profileFields.user = req.user.id;
     if (company) profileFields.company = company;
     if (website) profileFields.website = website;
@@ -77,6 +76,7 @@ router.post(
     if (skills) {
       profileFields.skills = skills.split(",").map((skill) => skill.trim());
     }
+    //console.log(profileFields.skills);
 
     // Build social object
     profileFields.social = {};
@@ -87,22 +87,48 @@ router.post(
     if (instagram) profileFields.social.instagram = instagram;
 
     try {
+      /*
       // Using upsert option (creates new doc if no match is found):
       let profile = await Profile.findOneAndUpdate(
+        //user from db
+        //req.user.id: from token
         { user: req.user.id },
         { $set: profileFields },
         { new: true, upsert: true }
-      );
+      );*/
+
+      let profile = await Profile.findOne({ user: req.user.id });
+      if (profile) {
+        //Update
+        profile = await Profile.findOneAndUpdate(
+          { user: req.user.id },
+          { $set: profileFields },
+          { new: true, upsert: true }
+        );
+        return res.json(profile);
+      }
+      //Create profile
+      profile = new Profile(profileFields);
+      //Save to DB
+      await profile.save();
       res.json(profile);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send("Server Error");
+      res.status(500).send("Server Error.....");
     }
   }
 );
+// @route    GET api/profile
+// @desc     Get all profiles
+// @access   Public
 
-// @route   Post api/profile
-// @desc    Get current user profile
-// @ access private
-
+router.get("/", async (req, res) => {
+  try {
+    const profiles = await Profile.find().populate("user", ["name", "avatar"]);
+    res.json(profiles);
+  } catch (err) {
+    console.err(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 module.exports = router;
