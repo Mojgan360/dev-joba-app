@@ -29,17 +29,20 @@ router.get("/me", auth, async (req, res) => {
     res.status(500).send("Server Erorr.....");
   }
 });
+//___
 
-// @route    POST api/profile
-// @desc     Create or update user profile
-// @access   Private
+//____
+
+// @route   Post api/posts
+// @desc    Create or update user profile
+// @access Pr, ivate
 router.post(
   "/",
   [
     auth,
     [
-      check("status", "Status is required").not().isEmpty(),
-      check("skills", "Skills is required").not().isEmpty(),
+      check("status", "status is required").not().isEmpty(),
+      check("skills", "skills is required ").not().isEmpty(),
     ],
   ],
   async (req, res) => {
@@ -63,9 +66,8 @@ router.post(
       linkedin,
     } = req.body;
 
-    // Build profile object
+    //build profile object
     const profileFields = {};
-    //vi kan ha tillgång till user from Profile-model genom req.user.iD
     profileFields.user = req.user.id;
     if (company) profileFields.company = company;
     if (website) profileFields.website = website;
@@ -76,9 +78,9 @@ router.post(
     if (skills) {
       profileFields.skills = skills.split(",").map((skill) => skill.trim());
     }
-    //console.log(profileFields.skills);
 
-    // Build social object
+    //Build social object
+
     profileFields.social = {};
     if (youtube) profileFields.social.youtube = youtube;
     if (twitter) profileFields.social.twitter = twitter;
@@ -87,37 +89,65 @@ router.post(
     if (instagram) profileFields.social.instagram = instagram;
 
     try {
-      /*
-      // Using upsert option (creates new doc if no match is found):
-      let profile = await Profile.findOneAndUpdate(
-        //user from db
-        //req.user.id: from token
-        { user: req.user.id },
-        { $set: profileFields },
-        { new: true, upsert: true }
-      );*/
-
       let profile = await Profile.findOne({ user: req.user.id });
+
       if (profile) {
         //Update
         profile = await Profile.findOneAndUpdate(
           { user: req.user.id },
           { $set: profileFields },
-          { new: true, upsert: true }
+          { new: true }
         );
         return res.json(profile);
       }
-      //Create profile
       profile = new Profile(profileFields);
-      //Save to DB
+
       await profile.save();
-      res.json(profile);
+      res.send(profile);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send("Server Error.....");
+      res.status(500).send("Server error");
     }
+
+    res.send("hello");
   }
 );
+
+//***** */
+// try {
+//   // // Using upsert option (creates new doc if no match is found):
+//   // let profile = await Profile.findOneAndUpdate(
+//   //   //user from db
+//   //   //req.user.id: from token
+//   //   { user: req.user.id },
+//   //   { $set: profileFields },
+//   //   { new: true, upsert: true }
+//   // );
+
+//   let profile = await Profile.findOne({ user: req.user.id });
+
+//   if (profile) {
+//     //Update
+
+//     profile = await Profile.findOneAndUpdate(
+//       { user: req.user.id },
+//       { $set: profileFields },
+//       { new: true, upsert: true }
+//     );
+//     return res.json(profile);
+//   }
+//   //Create profile
+
+//   profile = new Profile(profileFields);
+//   await profile.save();
+//   res.json(profile);
+// } catch (err) {
+//   console.error(err.message);
+//   res.status(500).send("Server Error.....");
+// }
+// res.send("hello");
+// }
+//);
 // @route    GET api/profile
 // @desc     Get all profiles
 // @access   Public
@@ -131,4 +161,5 @@ router.get("/", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
 module.exports = router;
