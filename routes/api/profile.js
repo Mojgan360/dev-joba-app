@@ -113,6 +113,19 @@ router.post(
   }
 );
 
+// @route    GET api/profile
+// @desc     Get all profiles
+// @access   Public
+router.get("/", async (req, res) => {
+  try {
+    const profiles = await Profile.find().populate("user", ["name", "avatar"]);
+    res.json(profiles);
+  } catch (err) {
+    console.err(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 //***** */
 // try {
 //   // // Using upsert option (creates new doc if no match is found):
@@ -123,43 +136,5 @@ router.post(
 //   //   { $set: profileFields },
 //   //   { new: true, upsert: true }
 //   // );
-
-//   let profile = await Profile.findOne({ user: req.user.id });
-
-//   if (profile) {
-//     //Update
-
-//     profile = await Profile.findOneAndUpdate(
-//       { user: req.user.id },
-//       { $set: profileFields },
-//       { new: true, upsert: true }
-//     );
-//     return res.json(profile);
-//   }
-//   //Create profile
-
-//   profile = new Profile(profileFields);
-//   await profile.save();
-//   res.json(profile);
-// } catch (err) {
-//   console.error(err.message);
-//   res.status(500).send("Server Error.....");
-// }
-// res.send("hello");
-// }
-//);
-// @route    GET api/profile
-// @desc     Get all profiles
-// @access   Public
-
-router.get("/", async (req, res) => {
-  try {
-    const profiles = await Profile.find().populate("user", ["name", "avatar"]);
-    res.json(profiles);
-  } catch (err) {
-    console.err(err.message);
-    res.status(500).send("Server Error");
-  }
-});
 
 module.exports = router;
