@@ -38,7 +38,7 @@ const ProfileSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
-      localtion: {
+      location: {
         type: String,
       },
       from: {
@@ -50,7 +50,7 @@ const ProfileSchema = new mongoose.Schema({
       },
       current: {
         type: Boolean,
-        defaut: false,
+        default: false,
       },
       description: {
         type: String,
