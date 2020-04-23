@@ -126,15 +126,15 @@ router.get("/", async (req, res) => {
   }
 });
 
-//***** */
-// try {
-//   // // Using upsert option (creates new doc if no match is found):
-//   // let profile = await Profile.findOneAndUpdate(
-//   //   //user from db
-//   //   //req.user.id: from token
-//   //   { user: req.user.id },
-//   //   { $set: profileFields },
-//   //   { new: true, upsert: true }
-//   // );
-
 module.exports = router;
+
+/*
+try {
+  // Using upsert option (creates new doc if no match is found):
+  let profile = await Profile.findOneAndUpdate(
+    //user from db
+    //req.user.id: from token
+    { user: req.user.id },
+    { $set: profileFields },
+    { new: true, upsert: true }
+  );*/
