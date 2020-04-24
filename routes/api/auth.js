@@ -7,14 +7,14 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 
-// @route   GET api/auth
-// @desc    test route
-// @ access public
+// @route    GET api/auth
+// @desc     Get user by token
+// @access   Private
 
 router.get("/", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
-    console.log(req.user.id);
+    //console.log(req.user.id);
     return res.json({ user });
   } catch (err) {
     console.log(err.message);
@@ -24,9 +24,9 @@ router.get("/", auth, async (req, res) => {
 
 //=========
 
-// @route   Post api/user
-// @desc    autorization user, login
-// @ access public
+// @route    POST api/auth
+// @desc     Login: Authenticate user & get token
+// @access   Public
 
 //info:  //https://express-validator.github.io/docs/#basic-guide
 router.post(
@@ -44,7 +44,7 @@ router.post(
     const { email, password } = req.body;
 
     try {
-      let user = await User.findOne({ email });
+      let user = await User.findOne({ email: email });
       //--*--
       if (!user) {
         return res

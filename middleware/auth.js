@@ -11,7 +11,6 @@ module.exports = (req, res, next) => {
       const decode = jwt.verify(token, config.get("Jwt_Sceret"));
 
       req.user = decode.user;
-      //console.log(`req-user ${req.user.id}`);
 
       next();
     } catch (err) {
