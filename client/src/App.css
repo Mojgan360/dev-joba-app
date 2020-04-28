@@ -3,9 +3,10 @@
   --primary-color: #9f956c;
   --dark-color: #584d3d;
   --light-color: #f4f4f4;
-  --danger-color: #f4e87c;
+  --danger-color: #db504a;
   --success-color: #cbbf7a;
 }
+/* --danger-color: #f4e87c; */
 
 * {
   box-sizing: border-box;
