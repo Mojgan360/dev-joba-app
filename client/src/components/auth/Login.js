@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../../action/auth";
@@ -17,6 +17,9 @@ const Login = ({ login, isAuthenticated }) => {
     e.preventDefault();
     login(email, password);
   };
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
   return (
     <>
       <h1 className="large text-primary">Sign In</h1>
