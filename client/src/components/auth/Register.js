@@ -43,6 +43,7 @@ const Register = ({ setAlert, register }) => {
       **/
       console.log("SUCCESS.");
       register({ name, email, password });
+      setAlert("SUCCESS...", "success");
     }
   };
 
