@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { login } from "../../action/auth";
 
-const Login = () => {
+const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = React.useState({
     email: "",
     password: "",
@@ -12,6 +15,7 @@ const Login = () => {
   };
   const handelOnsubmit = async (e) => {
     e.preventDefault();
+    login(email, password);
   };
   return (
     <>
@@ -48,5 +52,12 @@ const Login = () => {
     </>
   );
 };
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
 
-export default Login;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+export default connect(mapStateToProps, { login })(Login);
