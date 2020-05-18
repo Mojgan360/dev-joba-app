@@ -3,10 +3,21 @@
   --primary-color: #9f956c;
   --dark-color: #584d3d;
   --light-color: #f4f4f4;
-  --danger-color: #db504a;
-  --success-color: #cbbf7a;
+  --danger-color: #de541e;
+  --success-color: #3f826d;
 }
+
+/* --primary-color: #f2d0a4;
+  --dark-color: #545e75;
+  --light-color: #f7f7ff;
+  --danger-color: #c03221;
+  --success-color: #3f826d; */
 /* --danger-color: #f4e87c; */
+/* --primary-color: #9f956c;
+  --dark-color: #584d3d;
+  --light-color: #f4f4f4;
+  --danger-color: #db504a;
+  --success-color: #cbbf7a; */
 
 * {
   box-sizing: border-box;
