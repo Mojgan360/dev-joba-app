@@ -29,12 +29,11 @@ const Landing = ({ isAuthenticated }) => {
     </section>
   );
 };
-Landing.prototype = {
-  isAuthenticated: PropTypes.bool.isRequired,
+Landing.propTypes = {
+  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.isAuthenticated,
+  isAuthenticated: state.auth.isAuthenticated,
 });
-
 export default connect(mapStateToProps)(Landing);
