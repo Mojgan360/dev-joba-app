@@ -9,6 +9,7 @@ import Login from "./components/auth/Login";
 import Alert from "./components/layout/Alert";
 import Dashboard from "./components/dashboard/Dashboard";
 import CreateProfile from "./components/profile-forms/CreateProfile";
+import EditProfile from "./components/profile-forms/EditProfile";
 import PrivateRoute from "./components/routhing/PrivateRoute";
 
 // Redux
@@ -55,6 +56,10 @@ const App = () => {
               <PrivateRoute path="/create-profile">
                 {" "}
                 <CreateProfile />
+              </PrivateRoute>
+              <PrivateRoute path="/Edit-profile">
+                {" "}
+                <EditProfile />
               </PrivateRoute>
             </Switch>
           </section>

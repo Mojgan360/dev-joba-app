@@ -2,7 +2,7 @@ import axios from "axios";
 import { setAlert } from "./alert";
 //import api from "../utils/api";
 
-import { GET_PROFILE, PROFILE_ERRORE } from "./types";
+import { GET_PROFILE, PROFILE_ERRORE, UPDATE_PROFILE } from "./types";
 
 //get current user profile
 export const getCurrentProfile = () => async (dispatch) => {
@@ -42,7 +42,9 @@ export const createProfile = (formData, history, edit = false) => async (
       payload: res.data,
     });
 
-    dispatch(setAlert(edit ? "Profile Updated." : "Profile Created"));
+    dispatch(
+      setAlert(edit ? "Profile Updated." : "Profile Created", "success")
+    );
     //redirect after
     if (!edit) {
       history.push("/dashboard");
