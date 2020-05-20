@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
@@ -60,7 +60,8 @@ const CreateProfile = ({ createProfile, history }) => {
       <small>* = required field</small>
       <form onSubmit={onSubmit} className="form">
         <div className="form-group">
-          <select name="status" onChange={onChange}>
+          <select name="status" value={status} onChange={onChange}>
+            {" "}
             <option value="0">* Select Professional Status</option>
             <option value="Developer">Developer</option>
             <option value="Junior Developer">Junior Developer</option>
