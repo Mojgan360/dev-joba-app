@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { addEducation } from "../../actions/profile";
+import { addEducation } from "../../action/profile";
 
 const AddEducation = ({ addEducation, history }) => {
   const [formData, setFormData] = useState({
@@ -122,3 +122,5 @@ const AddEducation = ({ addEducation, history }) => {
 AddEducation.propTypes = {
   addEducation: PropTypes.func.isRequired,
 };
+
+export default connect(null, { addEducation })(AddEducation);

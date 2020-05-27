@@ -40,7 +40,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
   };
   const body = JSON.stringify({ name, email, password });
   try {
-    const res = await api.post("/users", body, config);
+    const res = await api.post("/user", body, config);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data,
