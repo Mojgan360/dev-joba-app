@@ -10,10 +10,6 @@ const User = require("../../models/User");
 // @route    POST api/posts
 // @desc     Create a post
 // @access   Private
-
-// @route    POST api/posts
-// @desc     Create a post
-// @access   Private
 router.post(
   "/",
   [auth, [check("text", "Text is required").not().isEmpty()]],
@@ -45,7 +41,7 @@ router.post(
 
 // @route    GET api/posts
 // @desc     Get all posts
-// @access   Private
+// @access   Private -
 router.get("/", auth, async (req, res) => {
   try {
     const posts = await Post.find().sort({ date: -1 });

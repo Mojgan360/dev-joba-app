@@ -36,6 +36,7 @@ const PostItem = ({
             <i className="fas fa-thumbs-up" />{" "}
             <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
           </button>
+
           <button
             onClick={() => removeLike(_id)}
             type="button"
@@ -43,6 +44,7 @@ const PostItem = ({
           >
             <i className="fas fa-thumbs-down" />
           </button>
+
           <Link to={`/posts/${_id}`} className="btn btn-primary">
             Discussion{" "}
             {comments.length > 0 && (

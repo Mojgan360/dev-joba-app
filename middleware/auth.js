@@ -9,8 +9,16 @@ module.exports = (req, res, next) => {
   if (token) {
     try {
       const decode = jwt.verify(token, config.get("Jwt_Sceret"));
+      /* decode: 
+      {
+         user: { id: '5ec5255e713e512c3120088f' },
+          iat: 1591307794,
+           exp: 1594907794
+         
+      }
+   */
 
-      req.user = decode.user;
+      req.user = decode.user; // id: '5ec5255e713e512c3120088f'
 
       next();
     } catch (err) {
